@@ -9,7 +9,7 @@ import entidades.Huevo;
 public class Tablero {
 
 	// Creación Atributos Matriz
-	char matrizEscenario[][] = new char[15][15];
+	String matrizEscenario[][] = new String [15][15];
 	int filaKromis;
 	int columnaKromis;
 	int filaCaguano;
@@ -19,21 +19,7 @@ public class Tablero {
 
 	Random generadorNumeroAleatorio = new Random();
 
-	private ArrayList<Object> carroList; // Arreglo de 18 carros
-	private ArrayList<Huevo> tirosHuevos; // Arreglo de tiros de huevos
-
-	/**
-	 * @param carroList
-	 * @param tirosHuevos
-	 */
-
-	public void crearCarro() {
-		// crear subclase de la clase carro, y asignar a la lista respectiva carroList o
-		// tirosHuevo
-
-	}
-
-	// Constructor de las posiciones
+	// Constructor de las posiciones de los carros
 	public Tablero(int filaKromis, int columnaKromis, int filaCaguano, int columnaCaguano, int filaTrupalla,
 			int columnaTrupalla) {
 		super();
@@ -44,23 +30,23 @@ public class Tablero {
 		this.filaTrupalla = -1;
 		this.columnaTrupalla = -1;
 	}
-
-	public Tablero() { // Constructor vacio
+	
+	// Constructor vacio
+	public Tablero() { 
 
 	}
-
+	// Se recorre e imprime la matriz
 	public void mostrarMatriz() {
+	
 		for (int x = 0; x < 15; x++) {
 			System.out.print("\n");
 			for (int y = 0; y < 15; y++) {
 				if (y != 15) {
 					System.out.print(matrizEscenario[x][y]);
-
 				}
-
 				System.out.print(" ");
 			}
-
+			System.out.print("|" + x);
 		}
 	}
 
@@ -82,9 +68,8 @@ public class Tablero {
 
 	public void creacionMatrizVacia() {
 		for (int x = 0; x < 15; x++) {
-			System.out.print("\n");
 			for (int y = 0; y < 15; y++) {
-				matrizEscenario[x][y] = '*';
+				matrizEscenario[x][y] = " * ";
 			}
 		}
 	}
@@ -100,12 +85,12 @@ public class Tablero {
 				filaKromis = generadorNumeroAleatorio.nextInt(13);
 			}
 			// Validar espacios vacios
-			if (matrizEscenario[filaKromis][columnaKromis] == '*') {
-				if (matrizEscenario[filaKromis + 1][columnaKromis] == '*') { // Validar espacio libre
-					if (matrizEscenario[filaKromis + 2][columnaKromis] == '*') { // Validar espacio libre
-						matrizEscenario[filaKromis][columnaKromis] = 'K'; // Asigna la posición carro Kromi
-						matrizEscenario[filaKromis + 1][columnaKromis] = 'K'; // Asigna la posición carro Kromi
-						matrizEscenario[filaKromis + 2][columnaKromis] = 'K'; // Asigna la posición carro Kromi
+			if (matrizEscenario[filaKromis][columnaKromis] == " * ") {
+				if (matrizEscenario[filaKromis + 1][columnaKromis] == " * ") { // Validar espacio libre
+					if (matrizEscenario[filaKromis + 2][columnaKromis] == " * ") { // Validar espacio libre
+						matrizEscenario[filaKromis][columnaKromis] = " K "; // Asigna la posición carro Kromi
+						matrizEscenario[filaKromis + 1][columnaKromis] = " K "; // Asigna la posición carro Kromi
+						matrizEscenario[filaKromis + 2][columnaKromis] = " K "; // Asigna la posición carro Kromi
 						switchKromi = 0; // Salida del ciclo
 
 					}
@@ -131,10 +116,10 @@ public class Tablero {
 			}
 
 			// Validar Espacios Vacios
-			if (matrizEscenario[filaCaguano][columnaCaguano] == '*') {
-				if (matrizEscenario[filaCaguano][columnaCaguano + 1] == '*') { // Validar espacio vacio del costado
-					matrizEscenario[filaCaguano][columnaCaguano] = 'C'; // Posicionar Caguano
-					matrizEscenario[filaCaguano][columnaCaguano + 1] = 'C';
+			if (matrizEscenario[filaCaguano][columnaCaguano] == " * ") {
+				if (matrizEscenario[filaCaguano][columnaCaguano + 1] == " * ") { // Validar espacio vacio del costado
+					matrizEscenario[filaCaguano][columnaCaguano] = " C "; // Posicionar Caguano
+					matrizEscenario[filaCaguano][columnaCaguano + 1] = " C ";
 					switchCaguano = 0;
 				}
 			}
@@ -159,74 +144,181 @@ public class Tablero {
 				columnaTrupalla = generadorNumeroAleatorio.nextInt(15);
 			}
 			// Validar Espacios Vacios
-			if (matrizEscenario[filaTrupalla][columnaTrupalla] == '*') {
-				matrizEscenario[filaTrupalla][columnaTrupalla] = 'T';
+			if (matrizEscenario[filaTrupalla][columnaTrupalla] == " * ") {
+				
+				matrizEscenario[filaTrupalla][columnaTrupalla] = " T ";
 				switchTrupalla = 0;
 			}
 
 		} while (switchTrupalla == 1);
 	}
 
-	public void lanzarHuevo() {
-		// crear instancia clase huevo, solicitar coordenadas, calcular el puntaje y
-		// almacenar
+	public int puntajeHuevo(int fila, int columna, int acumulador) {
+
+		String posicion = matrizEscenario[fila][columna]; // Posicion de la Fila y Columna ingresada
+
+		if (posicion == " * " || posicion == " H ") { // Si la posición ingresada corresponde a * o H esta mantiene el
+														// mismo puntaje, no suma puntos.
+
+			acumulador = acumulador + 0;
+			matrizEscenario[fila][columna] = " H ";
+		}
+
+		if (posicion == " C ") { // Validación si la posicion ingresada corresponde a Caguano
+
+			acumulador = acumulador + 2; // El puntaje aumenta 2
+			matrizEscenario[fila][columna] = "HC "; // La posicion cambia a HC , quiere decir que la posicion Caguano
+													// recibio un huevo
+			// Puntaje adicional por completar el carro completo
+
+			if (columna != 0 && columna != 14) { // Validando posiciones del centro de la matriz
+
+				if (matrizEscenario[fila][columna] == "HC "
+						&& (matrizEscenario[fila][columna + 1] == "HC " || matrizEscenario[fila][columna - 1] == "HC ")) {
+
+					acumulador = acumulador + 7; // Adicionar el puntaje extra al total
+				} else {
+					if (columna == 0) { // Validar extremo de las matriz
+
+						if (matrizEscenario[fila][columna] == "HC " && matrizEscenario[fila][columna + 1] == "HC ") {
+
+							acumulador = acumulador + 7; // Adicionar el puntaje extra al total
+						} else if (columna == 14) { // Validar extremo de las matriz
+
+							if (matrizEscenario[fila][columna] == "HC " && matrizEscenario[fila][columna - 1] == "HC ") {
+
+								acumulador = acumulador + 7; // Adicionar el puntaje extra al total
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (posicion == " T ") { // Validación si la posicion ingresada corresponde a Trupalla
+
+			acumulador = acumulador + 1; // El puntaje aumenta 2
+			matrizEscenario[fila][columna] = "HT "; // La posicion cambia a HT , quiere decir que la posicion Trupalla
+													// recibio un huevo
+		}
+
+		if (posicion == " K ") { // Validación si la posicion ingresada corresponde a Kromis
+
+			acumulador = acumulador + 3; // El puntaje aumenta 3
+			matrizEscenario[fila][columna] = "HK "; // La posicion cambia a HK , quiere decir que la posicion Kromis
+													// recibio un huevo
+
+			if (fila >= 2 && fila <= 12) { // Validando posiciones del centro de la matriz
+
+				if ((matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila + 1][columna] == "HK "
+						&& matrizEscenario[fila + 2][columna] == "HK ")
+						|| (matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila - 1][columna] == "HK "
+								&& matrizEscenario[fila + 1][columna] == "HK ")
+						|| (matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila - 1][columna] == "HK "
+								&& matrizEscenario[fila - 2][columna] == "HK ")) {
+
+					acumulador = acumulador + 10; // Adicionar el puntaje extra al total
+
+				} else {
+
+					if (fila == 0) { // Validando extremos de la matriz
+
+						if (matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila + 1][columna] == "HK "
+								&& matrizEscenario[fila + 2][columna] == "HK ") {
+
+							acumulador = acumulador + 10; // Adicionar el puntaje extra al total
+						}
+
+						if (fila == 14) { // Validando extremos de la matriz
+
+							if (matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila - 1][columna] == "HK "
+									&& matrizEscenario[fila - 2][columna] == "HK ") {
+
+								acumulador = acumulador + 10; // Adicionar el puntaje extra al total
+							}
+
+							if (fila == 13 || fila == 1) {
+
+								if (matrizEscenario[fila][columna] == "HK " && matrizEscenario[fila - 1][columna] == "HK "
+										&& matrizEscenario[fila + 1][columna] == "HK ") {
+
+									acumulador = acumulador + 10; // Adicionar el puntaje extra al total
+								}
+							}
+
+						}
+					}
+
+				}
+			}
+		}
+		return acumulador;
+
+	}
+	// Método get
+	public String[][] getMatrizEscenario() {
+		return matrizEscenario;
 	}
 
-	public void calcularPuntaje() {
-		lanzarHuevo();
+	public int getFilaKromis() {
+		return filaKromis;
 	}
 
-	/**
-	 * @return the carroList
-	 */
-	public ArrayList<Object> getCarroList() {
-		return carroList;
+	public int getColumnaKromis() {
+		return columnaKromis;
 	}
 
-	/**
-	 * @return the tirosHuevos
-	 */
-	public ArrayList<Huevo> getTirosHuevos() {
-		return tirosHuevos;
+	public int getFilaCaguano() {
+		return filaCaguano;
 	}
 
-	/**
-	 * @param carroList the carroList to set
-	 */
-	public void setCarroList(ArrayList<Object> carroList) {
-		this.carroList = carroList;
+	public int getColumnaCaguano() {
+		return columnaCaguano;
 	}
 
-	/**
-	 * @param tirosHuevos the tirosHuevos to set
-	 */
-	public void setTirosHuevos(ArrayList<Huevo> tirosHuevos) {
-		this.tirosHuevos = tirosHuevos;
+	public int getFilaTrupalla() {
+		return filaTrupalla;
 	}
 
-	@Override
-	public String toString() {
-		return "Tablero [carroList=" + carroList + ", tirosHuevos=" + tirosHuevos + "]";
+	public int getColumnaTrupalla() {
+		return columnaTrupalla;
 	}
 
-public int puntajeHuevo(int fila, int columna,int acomulador) {
-		
-		char posicion=matrizEscenario[fila][columna];
-		
-		if (posicion=='*'|| posicion=='H'){
-			acomulador=acomulador+0;
-		}else if (posicion=='C'){
-			   acomulador=acomulador+2;
-		}else if (posicion=='T'){
-			   acomulador=acomulador+1;	   
-		}else if (posicion=='K'){
-			   acomulador=acomulador+3;
-		
-		}	
-	matrizEscenario[fila][columna]='H';
-	
-		
-	return acomulador;}
-	
+	public Random getGeneradorNumeroAleatorio() {
+		return generadorNumeroAleatorio;
+	}
+
+	// Método set 
+	public void setMatrizEscenario(String[][] matrizEscenario) {
+		this.matrizEscenario = matrizEscenario;
+	}
+
+	public void setFilaKromis(int filaKromis) {
+		this.filaKromis = filaKromis;
+	}
+
+	public void setColumnaKromis(int columnaKromis) {
+		this.columnaKromis = columnaKromis;
+	}
+
+	public void setFilaCaguano(int filaCaguano) {
+		this.filaCaguano = filaCaguano;
+	}
+
+	public void setColumnaCaguano(int columnaCaguano) {
+		this.columnaCaguano = columnaCaguano;
+	}
+
+	public void setFilaTrupalla(int filaTrupalla) {
+		this.filaTrupalla = filaTrupalla;
+	}
+
+	public void setColumnaTrupalla(int columnaTrupalla) {
+		this.columnaTrupalla = columnaTrupalla;
+	}
+
+	public void setGeneradorNumeroAleatorio(Random generadorNumeroAleatorio) {
+		this.generadorNumeroAleatorio = generadorNumeroAleatorio;
+	}
 
 }

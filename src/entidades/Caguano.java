@@ -4,49 +4,38 @@ import java.util.Date;
 
 public class Caguano extends Carro {
 	
-// 5 CAGUANOS HORIZONTALES Y CON LETRA C (UTILIZA DOS CELDAS HORIZONTALES)
+// 5 Caguanos Horizontales y con letra C (Utiliza 2 celdas Horizontales)
 	
+	// Declarando atributos de la clase Caguano
 	private int alcanceTiro;
 	private String colorConfite;
-	/**
-	 * @param numeroDeCarro
-	 * @param cantidadDeOcupantes
-	 * @param fechaDeIngreso
-	 * @param fila
-	 * @param columna
-	 */
+	
+	// Constructor por defecto
 	public Caguano(int numeroDeCarro, int cantidadDeOcupantes, Date fechaDeIngreso, int filaCarro, int columnaCarro) {
 		super(numeroDeCarro, cantidadDeOcupantes, fechaDeIngreso, filaCarro, columnaCarro);
-		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * @return the alcanceTiro
-	 */
+
+	// Método get
 	public int getAlcanceTiro() {
 		return alcanceTiro;
 	}
-	/**
-	 * @return the colorConfite
-	 */
+	
 	public String getColorConfite() {
 		return colorConfite;
 	}
-	/**
-	 * @param alcanceTiro the alcanceTiro to set
-	 */
+
+	// Método set
 	public void setAlcanceTiro(int alcanceTiro) {
 		this.alcanceTiro = alcanceTiro;
 	}
-	/**
-	 * @param colorConfite the colorConfite to set
-	 */
+
 	public void setColorConfite(String colorConfite) {
 		this.colorConfite = colorConfite;
 	}
-	@Override
+
+	// Método String
 	public String toString() {
 		return "Caguano [alcanceTiro=" + alcanceTiro + ", colorConfite=" + colorConfite + "]";
 	}
-	
-	
+
 }

@@ -1,20 +1,15 @@
 package entidades;
 
 import java.util.Scanner;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import negocios.Tablero;
+
 public class Huevo {
 
+	// Declarando atributos de la clase Carro
 	private int filaHuevo;
 	private int columnaHuevo;
 	private int puntajeLanzamiento;
 
-	/**
-	 * @param filaHuevo
-	 * @param columnaHuevo
-	 * @param puntajeLanzamiento
-	 */
+	// Constructor por defecto
 	public Huevo(int filaHuevo, int columnaHuevo, int puntajeLanzamiento) {
 		super();
 		this.filaHuevo = filaHuevo;
@@ -22,109 +17,84 @@ public class Huevo {
 		this.puntajeLanzamiento = puntajeLanzamiento;
 	}
 
+	// Constructor
 	public Huevo() {
-		// TODO Auto-generated constructor stub
 	}
-
 	
-	
-	
+	// Ingresar y Validar Coordenada Fila
 	public int pedirCoordenadaFila() {
-		int sw=1;
+		int switchFila=1;
+		Scanner tecladoFila = new Scanner(System.in);
 		
-	
 		do {
-		String tecladoFila = JOptionPane.showInputDialog("Introduce la coordenada de la Fila: ");
-		filaHuevo = Integer.parseInt(tecladoFila);
-		
+			System.out.println("Ingrese Fila:");
+			filaHuevo= tecladoFila.nextInt();
+			
 		if (validarCoordenada(filaHuevo) != false) {
-			sw=0;
+			switchFila=0;
 		}
-		}while (sw==1);
-	
-	
 		
-		
+		} while (switchFila==1);
 	return filaHuevo;
     
     }
-//fin pedir coordenada fila
+	// Ingresar y Validar Coordenada Columna
 	public int pedirCoordenadaColumna() {
-		
-		int sw2=1;
-	
-				
-		do {
-		
-		String tecladoColumna = JOptionPane.showInputDialog("Introduce la coordenada de la Columna: ");
-		columnaHuevo = Integer.parseInt(tecladoColumna);
-		if (validarCoordenada(columnaHuevo) != false) {
-			sw2=0;
-		}
-		}while (sw2==1);
-	
-		
-		
-	return columnaHuevo;
-    
-    }
 
-	
-/////fin prdir cor columna
+		int switchColumna = 1;
+		Scanner tecladoColumna = new Scanner(System.in);
+
+		do {
+
+			System.out.println("Ingrese Columna:");
+			columnaHuevo = tecladoColumna.nextInt();
+			if (validarCoordenada(columnaHuevo) != false) {
+				switchColumna = 0;
+			}
+		} while (switchColumna == 1);
+
+		return columnaHuevo;
+
+	}
+
+	// Validar Coordenada Ingresada
 	public boolean validarCoordenada(int num) {
 		if (num >= 0 && num <= 14) {
 			return true;
 		} else
 			return false;
 	}
-
-	/**
-	 * @return the filaHuevo
-	 */
+	
+	// Método get
 	public int getFilaHuevo() {
 		return filaHuevo;
 	}
 
-	/**
-	 * @return the columnaHuevo
-	 */
 	public int getColumnaHuevo() {
 		return columnaHuevo;
 	}
 
-	/**
-	 * @return the puntajeLanzamiento
-	 */
 	public int getPuntajeLanzamiento() {
 		return puntajeLanzamiento;
 	}
 
-	/**
-	 * @param filaHuevo the filaHuevo to set
-	 */
+	// Método set
 	public void setFilaHuevo(int filaHuevo) {
 		this.filaHuevo = filaHuevo;
 	}
 
-	/**
-	 * @param columnaHuevo the columnaHuevo to set
-	 */
 	public void setColumnaHuevo(int columnaHuevo) {
 		this.columnaHuevo = columnaHuevo;
 	}
 
-	/**
-	 * @param puntajeLanzamiento the puntajeLanzamiento to set
-	 */
 	public void setPuntajeLanzamiento(int puntajeLanzamiento) {
 		this.puntajeLanzamiento = puntajeLanzamiento;
 	}
 
-	@Override
+	// Método String
 	public String toString() {
 		return "Huevo [filaHuevo=" + filaHuevo + ", columnaHuevo=" + columnaHuevo + ", puntajeLanzamiento="
 				+ puntajeLanzamiento + "]";
 	}
 
-	
 }
