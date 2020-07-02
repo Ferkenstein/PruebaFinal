@@ -20,6 +20,7 @@ public class Ejecutable {
 		do {
 
 			// Mostrar Menú
+
 			System.out.println("\n");
 			System.out.println("l----> Mostrar Matriz");
 			System.out.println("2----> Tirar Huevo");
@@ -57,10 +58,13 @@ public class Ejecutable {
 					System.out.print("1--->NO");
 
 					respuesta = tecladoRespuesta.nextInt();
+					System.out.print("\033[H\033[2J");
+					System.out.flush();
+					
 				} while (respuesta == 0);
-
+				
 			}
-			;
+			
 
 		} while (opcion != 3);
 
